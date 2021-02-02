@@ -27,12 +27,12 @@ class Frontend extends AbstractFrontend {
      */
     run(): void {
         const receivedEventsDom = document.getElementById('received-event');
-
-        this.plugin.subscribeEvent(EventType.CLOUDIDE_WORKSPACE_ONDIDCREATEFILES, (eventType, evt) => {
+        let eventHandler = (eventType: any, evt: any) => {
             const receivedEvent = document.createElement('pre');
             receivedEvent.append(document.createTextNode(`${JSON.stringify(evt)}`));
             receivedEventsDom?.appendChild(receivedEvent);
-        });
+        };
+        this.plugin.subscribeEvent(EventType.CLOUDIDE_WORKSPACE_ONDIDCREATEFILES, eventHandler);
     }
 
     stop(): void {

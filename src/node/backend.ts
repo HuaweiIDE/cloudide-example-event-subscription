@@ -27,9 +27,10 @@ export class Backend extends AbstractBackend {
      * In this function you can call function exposed by frontend 
      */
     public async run(): Promise<void> {
-        this.plugin.container.context.subscriptions.push(cloudide.workspace.onDidDeleteFiles((event) => {
+        let registeredEvent = cloudide.workspace.onDidDeleteFiles((event) => {
             cloudide.window.showInformationMessage(`${event.files.join(',')} deleted.`);
-        }));
+        });
+        this.plugin.container.context.subscriptions.push(registeredEvent);
     }
 
     public stop(): void {
